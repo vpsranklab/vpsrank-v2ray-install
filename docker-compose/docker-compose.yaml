@@ -1,0 +1,14 @@
+version: '3'
+services:
+  v2ray-instance:
+    image: teddysun/v2ray:5.4.0
+    command: /usr/bin/v2ray run -config /etc/v2ray/config-first.json
+    restart: always
+    environment:
+      LANG: en_US.utf8
+      LC_ALL: en_US.utf8
+    ports:
+      - "127.0.0.1:10001:9000"
+    volumes:
+      - "./conf:/etc/v2ray"
+      - "/etc/localtime:/etc/localtime:ro"
