@@ -47,8 +47,8 @@ cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/config-first.json
 EOF
 
 cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/Caddyfile
-gia.perfectstack.cn {
-    reverse_proxy 127.0.0.1:10000
+v2.vpsrank.com {
+    reverse_proxy 127.0.0.1:10001
 }
 EOF
 
