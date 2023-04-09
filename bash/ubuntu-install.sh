@@ -88,4 +88,4 @@ cd /opt/vpsrank/docker/compose/v2ray/ && docker-compose up -d
 #apt install caddy
 
 #验证caddy版本
-#caddy version
+# caddy version
