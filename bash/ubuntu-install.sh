@@ -48,7 +48,7 @@ EOF
 
 cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/Caddyfile
 v2.vpsrank.com {
-    reverse_proxy 127.0.0.1:10001
+    reverse_proxy 127.0.0.1:10000
 }
 EOF
 
@@ -63,7 +63,7 @@ services:
       LANG: en_US.utf8
       LC_ALL: en_US.utf8
     ports:
-      - "127.0.0.1:10001:9000"
+      - "127.0.0.1:10000:10000"
     volumes:
       - "./conf:/etc/v2ray"
       - "/etc/localtime:/etc/localtime:ro"
