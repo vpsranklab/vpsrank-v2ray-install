@@ -34,7 +34,7 @@ cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/config-first.json
     "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/index"
+          "path": "/"
         }
     },
     "listen": "0.0.0.0"
