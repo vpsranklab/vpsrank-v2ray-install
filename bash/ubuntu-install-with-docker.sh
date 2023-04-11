@@ -9,6 +9,9 @@ apt install -y docker.io
 curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
+# 生成UUID
+UUID=$(cat /proc/sys/kernel/random/uuid) && echo ${UUID}
+
 # 写入v2ray配置文件
 mkdir -p /opt/vpsrank/docker/compose/v2ray/conf
 
@@ -25,7 +28,7 @@ cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/config-first.json
     "settings": {
       "clients": [
         {
-          "id": "d90eb412-1e6f-4ed0-aa10-4d92abcd52a2",
+          "id": "${UUID}",
           "level": 1,
           "alterId": 64
         }
