@@ -1,4 +1,13 @@
-#!/usr/bin/env bash
+#!/bin/sh
+
+# Copyright VPS Rank Inc.
+
+
+if [ -z "$DOMAIN" ]
+then
+  echo "V2Ray域名未设置,请设置环境变量: DOMAIN"
+  return
+fi
 
 apt update
 
@@ -50,7 +59,7 @@ cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/config-first.json
 EOF
 
 cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/Caddyfile
-${DOMAIN} {
+$DOMAIN {
     reverse_proxy 127.0.0.1:10000
 }
 EOF
