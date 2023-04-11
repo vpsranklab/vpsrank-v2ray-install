@@ -10,20 +10,26 @@
 4. 流量代理工具: v2ray 5.4.0
 5. 应用服务器: caddy 2.6.x
 
+## 前置条件
+
+1. 一个域名(一级或二级域名), 可通过[Namecheap](https://www.namecheap.com/domains/)或[GoDaddy](https://dcc.godaddy.com/domains)购买, 示例:
+   - www.vpsrank.com
+   - v2.vpsrank.com
+2. 一台拥有root账户的国外服务器: VPS或云服务器均可, 可以通过[搬瓦工 BandwagonHost](https://bwh81.net/aff.php?aff=66695)或其它厂商购买
+3. 可以通过ssh工具(Xshell/MobaXterm)连接到VPS或云服务器
 
 ## 快速开始
 
-### 必要步骤
-
-1. 一个拥有管理权限的域名: 例如vpsrank.com, 可通过[Namecheap](https://www.namecheap.com/domains/)或[GoDaddy](https://dcc.godaddy.com/domains)购买
-2. 一台拥有root账户的国外服务器: VPS或云服务器均可, 可通过[搬瓦工 BandwagonHost](https://bwh81.net/aff.php?aff=66695)或其它厂商购买
-3. 可通过ssh工具连接到VPS或云服务器
-
-### 克隆该仓库到服务器指定项目
+### 安装V2Ray并包含Docker
 
 ```
-git clone https://gitlab.com/vpsrank/vpsrank-v2ray-install.git
-cd vpsrank-v2ray-install
+curl -L https://vpsrank.com/ubuntu-install-with-docker | sh -
+```
+
+### 安装V2Ray不包含Docker
+
+```
+curl -L https://vpsrank.com/ubuntu-install-without-docker | sh -
 ```
 
 ### 使用docker容器化部署(推荐)
