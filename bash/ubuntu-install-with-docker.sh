@@ -50,7 +50,7 @@ cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/config-first.json
 EOF
 
 cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/Caddyfile
-v2.vpsrank.com {
+${DOMAIN} {
     reverse_proxy 127.0.0.1:10000
 }
 EOF
