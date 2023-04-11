@@ -92,13 +92,3 @@ EOF
 
 # 启动v2ray服务端
 cd /opt/vpsrank/docker/compose/v2ray/ && docker-compose up -d
-
-# 安装caddy
-#apt install -y debian-keyring debian-archive-keyring apt-transport-https
-#curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-#curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
-#apt update
-#apt install caddy
-
-#验证caddy版本
-# caddy version
