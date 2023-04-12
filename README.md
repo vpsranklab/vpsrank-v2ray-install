@@ -21,21 +21,34 @@
 
 ## 快速开始
 
-### 自动安装
+### 自动部署
 
-#### 安装V2Ray(包含Docker)
+- V2Ray包含Docker(全新安装推荐)
+   #### 部署
+   
+   ```
+   curl -L https://vpsrank.com/ubuntu-install-with-docker | sh -
+   ```
+   
+   #### 卸载
+   
+   ```
+   curl -L https://vpsrank.com/ubuntu-uninstall-with-docker | sh -
+   ```
 
-```
-curl -L https://vpsrank.com/ubuntu-install-with-docker | sh -
-```
+- V2Ray不包含Docker(使用你已有的docker与docker-compose)
+   #### 部署
+   ```
+   curl -L https://vpsrank.com/ubuntu-install-without-docker | sh -
+   ```
+   
+   #### 卸载
+   
+   ```
+   curl -L https://vpsrank.com/ubuntu-uninstall-without-docker | sh -
+   ```
 
-#### 安装V2Ray(不包含Docker)
-
-```
-curl -L https://vpsrank.com/ubuntu-install-without-docker | sh -
-```
-
-### 手动安装
+### 手动部署
 
 #### 使用docker-compose部署
 
