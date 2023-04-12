@@ -5,12 +5,12 @@
     "loglevel": "warning"
   },
   "inbounds": [{
-    "port": 9000,
+    "port": 10000,
     "protocol": "vmess",
     "settings": {
       "clients": [
         {
-          "id": "466eb1fe-6943-4935-b893-9e8adb3c6b00",
+          "id": "YOUR_UUID",
           "level": 1,
           "alterId": 64
         }

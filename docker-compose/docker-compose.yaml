@@ -8,7 +8,15 @@ services:
       LANG: en_US.utf8
       LC_ALL: en_US.utf8
     ports:
-      - "127.0.0.1:10001:9000"
+      - "127.0.0.1:10000:10000"
     volumes:
       - "./conf:/etc/v2ray"
+      - "/etc/localtime:/etc/localtime:ro"
+  caddy:
+    container_name: caddy
+    image: caddy:2.6
+    restart: always
+    network_mode: "host"
+    volumes:
+      - "./conf/Caddyfile:/etc/caddy/Caddyfile:ro"
       - "/etc/localtime:/etc/localtime:ro"
