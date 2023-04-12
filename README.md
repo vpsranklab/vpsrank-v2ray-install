@@ -13,7 +13,7 @@
 
 ## 前置条件
 
-1. 一个域名(一级或二级域名), 可通过[Namecheap](https://www.namecheap.com/domains/)或[GoDaddy](https://dcc.godaddy.com/domains)购买, 示例:
+1. 一个域名(一级或二级域名), 并成功解析到你的**国外服务器**IP地址. 域名可通过[Namecheap](https://www.namecheap.com/domains/)或[GoDaddy](https://dcc.godaddy.com/domains)购买, 示例:
    - www.vpsrank.com
    - v2.vpsrank.com
 2. 一台拥有root账户的**国外服务器**: VPS或云服务器均可, 可以通过[搬瓦工 BandwagonHost](https://bwh81.net/aff.php?aff=66695)或其它厂商购买
