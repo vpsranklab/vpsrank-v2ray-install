@@ -20,6 +20,7 @@ chmod +x /usr/local/bin/docker-compose
 
 # 生成UUID
 UUID=$(cat /proc/sys/kernel/random/uuid) && echo ${UUID}
+export UUID
 
 # 写入v2ray配置文件
 mkdir -p /opt/vpsrank/docker/compose/v2ray/conf
@@ -103,6 +104,6 @@ wget -P /opt/vpsrank/docker/compose/v2ray/ https://gitlab.com/vpsrank/vpsrank-v2
 cd /opt/vpsrank/docker/compose/v2ray/ && docker-compose up -d
 
 # 终端打印vmess协议串
-vmessConfig='{"v":"2","ps":"$DOMAIN","add":"$DOMAIN","port":"443","id":"${UUID}","aid":"0","scy": "auto","net":"ws","type":"none","host":"$DOMAIN","path":"/chat","tls":"tls","sni":"","alpn":""}'
+vmessConfig="{\"v\":\"2\",\"ps\":\"$DOMAIN\",\"add\":\"$DOMAIN\",\"port\":\"443\",\"id\":\"${UUID}\",\"aid\":\"0\",\"scy\":\"auto\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"$DOMAIN\",\"path\":\"/chat\",\"tls\":\"tls\",\"sni\":\"\",\"alpn\":\"\"}"
 vmessString=$(echo -n "vmess://$(echo -n $vmessConfig | base64 --wrap=0)")
 echo $vmessString
