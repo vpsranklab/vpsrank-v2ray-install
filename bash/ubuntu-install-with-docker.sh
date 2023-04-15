@@ -72,7 +72,7 @@ EOF
 cat <<EOF > /opt/vpsrank/docker/compose/v2ray/docker-compose.yaml
 version: '3'
 services:
-  v2ray-instance:
+  vpsrank-v2ray-instance:
     container_name: v2ray-instance
     image: teddysun/v2ray:5.4.0
     command: /usr/bin/v2ray run -config /etc/v2ray/config-first.json
@@ -85,7 +85,7 @@ services:
     volumes:
       - "./conf:/etc/v2ray"
       - "/etc/localtime:/etc/localtime:ro"
-  caddy:
+  vpsrank-caddy:
     container_name: caddy
     image: caddy:2.6
     restart: always
