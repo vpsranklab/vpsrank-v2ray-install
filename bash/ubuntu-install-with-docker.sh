@@ -87,6 +87,7 @@ services:
     network_mode: "host"
     volumes:
       - "./conf/Caddyfile:/etc/caddy/Caddyfile:ro"
+      - "./index.html:/usr/share/caddy/index.html:ro"
       - "/etc/localtime:/etc/localtime:ro"
 EOF
 
