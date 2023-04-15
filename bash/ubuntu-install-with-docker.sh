@@ -90,5 +90,9 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
 EOF
 
+# 创建Caddy服务器默认的欢迎页面(index.html),用于模拟静态站点
+wget -P /opt/vpsrank/docker/compose/v2ray/ https://gitlab.com/vpsrank/vpsrank-v2ray-install/-/raw/master/assets/index.html
+
 # 启动v2ray服务端
 cd /opt/vpsrank/docker/compose/v2ray/ && docker-compose up -d
+
