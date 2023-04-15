@@ -60,7 +60,12 @@ EOF
 
 cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/Caddyfile
 $DOMAIN {
-    reverse_proxy 127.0.0.1:10000
+    root * /usr/share/caddy/
+    file_server
+
+    route {
+        reverse_proxy /chat 127.0.0.1:10000
+    }
 }
 EOF
 
