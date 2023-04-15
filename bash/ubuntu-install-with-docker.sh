@@ -102,3 +102,7 @@ wget -P /opt/vpsrank/docker/compose/v2ray/ https://gitlab.com/vpsrank/vpsrank-v2
 # 启动v2ray服务端
 cd /opt/vpsrank/docker/compose/v2ray/ && docker-compose up -d
 
+# 终端打印vmess协议串
+vmessConfig='{"v":"2","ps":"$DOMAIN","add":"$DOMAIN","port":"443","id":"${UUID}","aid":"0","scy": "auto","net":"ws","type":"none","host":"$DOMAIN","path":"/chat","tls":"tls","sni":"","alpn":""}'
+vmessString=$(echo -n "vmess://$(echo -n $vmessConfig | base64 --wrap=0)")
+echo $vmessString
