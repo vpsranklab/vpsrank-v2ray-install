@@ -11,6 +11,7 @@ fi
 
 # 生成UUID
 UUID=$(cat /proc/sys/kernel/random/uuid) && echo ${UUID}
+export UUID
 
 # 写入v2ray配置文件
 mkdir -p /opt/vpsrank/docker/compose/v2ray/conf
@@ -37,7 +38,7 @@ cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/config-first.json
     "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/"
+          "path": "/chat"
         }
     },
     "listen": "0.0.0.0"
@@ -50,8 +51,13 @@ cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/config-first.json
 EOF
 
 cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/Caddyfile
-$DOMAIN {
-    reverse_proxy 127.0.0.1:10000
+${DOMAIN} {
+    root * /usr/share/caddy/
+    file_server
+
+    route {
+        reverse_proxy /chat 127.0.0.1:10000
+    }
 }
 EOF
 
@@ -78,8 +84,12 @@ services:
     network_mode: "host"
     volumes:
       - "./conf/Caddyfile:/etc/caddy/Caddyfile:ro"
+      - "./index.html:/usr/share/caddy/index.html:ro"
       - "/etc/localtime:/etc/localtime:ro"
 EOF
+
+# 创建Caddy服务器默认的欢迎页面(index.html),用于模拟静态站点
+wget -P /opt/vpsrank/docker/compose/v2ray/ https://gitlab.com/vpsrank/vpsrank-v2ray-install/-/raw/master/assets/index.html
 
 # 启动v2ray服务端
 cd /opt/vpsrank/docker/compose/v2ray/ && docker-compose up -d
