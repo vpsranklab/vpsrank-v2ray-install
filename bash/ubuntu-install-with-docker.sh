@@ -106,4 +106,19 @@ cd /opt/vpsrank/docker/compose/v2ray/ && docker-compose up -d
 # 终端打印vmess协议串
 vmessConfig="{\"v\":\"2\",\"ps\":\"${DOMAIN}\",\"add\":\"${DOMAIN}\",\"port\":\"443\",\"id\":\"${UUID}\",\"aid\":\"0\",\"scy\":\"auto\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"${DOMAIN}\",\"path\":\"/chat\",\"tls\":\"tls\",\"sni\":\"\",\"alpn\":\"\"}"
 vmessString=$(echo -n "vmess://$(echo -n $vmessConfig | base64 --wrap=0)")
+
+echo "====================================="
+echo "V2ray Server配置信息"
+echo "地址(address): ${DOMAIN}"
+echo "端口(port): 443"
+echo "用户id(UUID): ${UUID}"
+echo "额外id(alterId):0"
+echo "加密方式(security): auto"
+echo "传输协议(network): ws"
+echo "伪装类型(type): none"
+echo "伪装域名(host): ${DOMAIN}"
+echo "路径(path): /chat"
+echo "底层传输安全: tls"
+echo "====================================="
+echo "=======导入以下vmess链接到V2RayN========"
 echo $vmessString
