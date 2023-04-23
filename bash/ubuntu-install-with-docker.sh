@@ -99,7 +99,7 @@ services:
 EOF
 
 # 创建Caddy服务器默认的欢迎页面(index.html),用于模拟静态站点
-wget -P /opt/vpsrank/docker/compose/v2ray/ https://raw.githubusercontent.com/vpsranklab/vpsrank-v2ray-install/master/assets/index.html
+wget -O /opt/vpsrank/docker/compose/v2ray/index.html https://raw.githubusercontent.com/vpsranklab/vpsrank-v2ray-install/master/assets/index.html
 
 # 启动v2ray服务端
 cd /opt/vpsrank/docker/compose/v2ray/ && docker-compose up -d
