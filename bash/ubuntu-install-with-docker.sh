@@ -6,6 +6,7 @@
 if [ -z "$DOMAIN" ]
 then
   echo "V2Ray域名未设置,请设置环境变量: DOMAIN"
+  echo "就像这样: export DOMAIN=v2.vpsrank.com"
   return
 fi
 
