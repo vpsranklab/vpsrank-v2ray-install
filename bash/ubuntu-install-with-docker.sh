@@ -61,12 +61,7 @@ cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/config-first.json
 EOF
 
 cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/Caddyfile
-{
-	# General Options
-	http_port    1180
-	https_port   11443
-}
-${DOMAIN}:11443 {
+${DOMAIN} {
     file_server
     route {
         reverse_proxy 127.0.0.1:10000
@@ -104,13 +99,13 @@ EOF
 cd /opt/vpsrank/docker/compose/v2ray/ && docker-compose up -d
 
 # 终端打印vmess协议串
-vmessConfig="{\"v\":\"2\",\"ps\":\"${DOMAIN}\",\"add\":\"${DOMAIN}\",\"port\":\"1443\",\"id\":\"${UUID}\",\"aid\":\"0\",\"scy\":\"auto\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"${DOMAIN}\",\"path\":\"/\",\"tls\":\"tls\",\"sni\":\"\",\"alpn\":\"\"}"
+vmessConfig="{\"v\":\"2\",\"ps\":\"${DOMAIN}\",\"add\":\"${DOMAIN}\",\"port\":\"443\",\"id\":\"${UUID}\",\"aid\":\"0\",\"scy\":\"auto\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"${DOMAIN}\",\"path\":\"/\",\"tls\":\"tls\",\"sni\":\"\",\"alpn\":\"\"}"
 vmessString=$(echo -n "vmess://$(echo -n $vmessConfig | base64 --wrap=0)")
 
 echo "====================================="
 echo "V2ray Server配置信息"
 echo "地址(address): ${DOMAIN}"
-echo "端口(port): 1443"
+echo "端口(port): 443"
 echo "用户id(UUID): ${UUID}"
 echo "额外id(alterId): 0"
 echo "加密方式(security): auto"
