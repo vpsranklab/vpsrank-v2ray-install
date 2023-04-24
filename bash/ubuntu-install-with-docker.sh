@@ -48,7 +48,7 @@ cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/config-first.json
     "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/chat"
+          "path": "/"
         }
     },
     "listen": "0.0.0.0"
@@ -62,11 +62,9 @@ EOF
 
 cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/Caddyfile
 ${DOMAIN}:1443 {
-    root * /usr/share/caddy/
     file_server
-
     route {
-        reverse_proxy /chat 127.0.0.1:10000
+        reverse_proxy 127.0.0.1:10000
     }
 }
 EOF
@@ -94,18 +92,14 @@ services:
     network_mode: "host"
     volumes:
       - "./conf/Caddyfile:/etc/caddy/Caddyfile:ro"
-      - "./index.html:/usr/share/caddy/index.html:ro"
       - "/etc/localtime:/etc/localtime:ro"
 EOF
-
-# 创建Caddy服务器默认的欢迎页面(index.html),用于模拟静态站点
-wget -O /opt/vpsrank/docker/compose/v2ray/index.html https://raw.githubusercontent.com/vpsranklab/vpsrank-v2ray-install/master/assets/index.html
 
 # 启动v2ray服务端
 cd /opt/vpsrank/docker/compose/v2ray/ && docker-compose up -d
 
 # 终端打印vmess协议串
-vmessConfig="{\"v\":\"2\",\"ps\":\"${DOMAIN}\",\"add\":\"${DOMAIN}\",\"port\":\"1443\",\"id\":\"${UUID}\",\"aid\":\"0\",\"scy\":\"auto\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"${DOMAIN}\",\"path\":\"/chat\",\"tls\":\"tls\",\"sni\":\"\",\"alpn\":\"\"}"
+vmessConfig="{\"v\":\"2\",\"ps\":\"${DOMAIN}\",\"add\":\"${DOMAIN}\",\"port\":\"1443\",\"id\":\"${UUID}\",\"aid\":\"0\",\"scy\":\"auto\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"${DOMAIN}\",\"path\":\"/\",\"tls\":\"tls\",\"sni\":\"\",\"alpn\":\"\"}"
 vmessString=$(echo -n "vmess://$(echo -n $vmessConfig | base64 --wrap=0)")
 
 echo "====================================="
@@ -118,7 +112,7 @@ echo "加密方式(security): auto"
 echo "传输协议(network): ws"
 echo "伪装类型(type): none"
 echo "伪装域名(host): ${DOMAIN}"
-echo "路径(path): /chat"
+echo "路径(path): /"
 echo "底层传输安全: tls"
 echo "====================================="
 echo "=======导入以下vmess链接到V2RayN========"
