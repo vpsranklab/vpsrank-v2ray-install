@@ -66,7 +66,7 @@ cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/Caddyfile
 	http_port    1180
 	https_port   11443
 }
-${DOMAIN} {
+${DOMAIN}:11443 {
     file_server
     route {
         reverse_proxy 127.0.0.1:10000
