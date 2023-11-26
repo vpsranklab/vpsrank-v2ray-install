@@ -76,11 +76,11 @@ EOL
 cd /opt/vpsrank/v2ray && docker-compose up -d
 
 # Install Caddy
-sudo apt-get install -y debian-keyring debian-archive-keyring apt-transport-https
-curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo apt-key add -
+sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
-sudo apt-get update
-sudo apt-get install -y caddy
+sudo apt update
+sudo apt install -y caddy
 
 # Create and populate docker-compose.yaml for Caddy
 sudo bash -c "cat > /opt/vpsrank/v2ray/docker-compose.yaml" <<EOL
