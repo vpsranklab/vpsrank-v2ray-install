@@ -120,7 +120,6 @@ vmessConfig="{\"v\":\"2\",\"ps\":\"${domain_name}\",\"add\":\"${domain_name}\",\
 vmessString=$(echo -n "vmess://$(echo -n $vmessConfig | base64 --wrap=0)")
 
 # Save Vmess address to file
-/opt/vpsrank/v2ray/
 
 sudo bash -c "cat > /opt/vpsrank/v2ray/vmess_info.txt" <<EOL
 =====================================
