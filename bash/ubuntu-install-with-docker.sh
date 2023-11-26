@@ -69,7 +69,7 @@ sudo bash -c "cat > /etc/v2ray/config.json" <<EOL
 EOL
 
 # Create and populate /opt/vpsrank/v2ray/docker-compose.yaml
-sudo mkdir -p /opt/vpsrank/docker/compose/v2ray
+sudo mkdir -p /opt/vpsrank/v2ray
 sudo bash -c "cat > /opt/vpsrank/v2ray/docker-compose.yaml" <<EOL
 version: '3'
 services:
