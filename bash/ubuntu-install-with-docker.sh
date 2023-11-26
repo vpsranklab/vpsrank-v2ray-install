@@ -68,9 +68,9 @@ sudo bash -c "cat > /etc/v2ray/config.json" <<EOL
 }
 EOL
 
-# Create and populate /opt/docker/compose/v2ray/docker-compose.yaml
-sudo mkdir -p /opt/docker/compose/v2ray
-sudo bash -c "cat > /opt/docker/compose/v2ray/docker-compose.yaml" <<EOL
+# Create and populate /opt/vpsrank/v2ray/docker-compose.yaml
+sudo mkdir -p /opt/vpsrank/docker/compose/v2ray
+sudo bash -c "cat > /opt/vpsrank/v2ray/docker-compose.yaml" <<EOL
 version: '3'
 services:
   v2ray:
@@ -95,7 +95,7 @@ sudo apt-get update
 sudo apt-get install -y caddy
 
 # Create and populate docker-compose.yaml for Caddy
-sudo bash -c "cat > /opt/docker/compose/v2ray/docker-compose.yaml" <<EOL
+sudo bash -c "cat > /opt/vpsrank/v2ray/docker-compose.yaml" <<EOL
 $domain_name {
     file_server
     reverse_proxy 127.0.0.1:10000 {
@@ -120,9 +120,9 @@ vmessConfig="{\"v\":\"2\",\"ps\":\"${domain_name}\",\"add\":\"${domain_name}\",\
 vmessString=$(echo -n "vmess://$(echo -n $vmessConfig | base64 --wrap=0)")
 
 # Save Vmess address to file
-/opt/docker/compose/v2ray/
+/opt/vpsrank/v2ray/
 
-sudo bash -c "cat > /opt/docker/compose/v2ray/vmess_info.txt" <<EOL
+sudo bash -c "cat > /opt/vpsrank/v2ray/vmess_info.txt" <<EOL
 =====================================
 V2ray Server配置信息
 地址(address): ${domain_name}
@@ -140,5 +140,5 @@ V2ray Server配置信息
 $vmessString
 EOL
 
-cat /opt/docker/compose/v2ray/vmess_info.txt
+cat /opt/vpsrank/v2ray/vmess_info.txt
 
