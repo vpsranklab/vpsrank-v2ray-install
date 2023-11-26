@@ -87,6 +87,9 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
 EOL
 
+# Start V2Ray
+cd /opt/vpsrank/v2ray && docker compose up -d
+
 # Install Caddy
 sudo apt-get install -y debian-keyring debian-archive-keyring apt-transport-https
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo apt-key add -
