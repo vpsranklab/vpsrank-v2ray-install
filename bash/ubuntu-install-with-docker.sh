@@ -83,7 +83,7 @@ sudo apt update
 sudo apt install -y caddy
 
 # Create and populate docker-compose.yaml for Caddy
-sudo bash -c "cat > /opt/vpsrank/v2ray/docker-compose.yaml" <<EOL
+sudo bash -c "cat > /etc/caddy/Caddyfile" <<EOL
 $domain_name {
     file_server
     reverse_proxy 127.0.0.1:10000 {
