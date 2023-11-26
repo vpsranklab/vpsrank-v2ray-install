@@ -1,32 +1,40 @@
-#!/bin/sh
+#!/bin/bash
 
-# Copyright VPS Rank Inc.
-
-
-if [ -z "$DOMAIN" ]
-then
-  echo "V2Ray域名未设置,请设置环境变量: DOMAIN"
-  echo "就像这样: export DOMAIN=v2.vpsrank.com"
-  return
+# Check if there are exactly two arguments provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 domain_name v2ray_version"
+    exit 1
 fi
 
-apt update
+# Assign arguments to variables
+domain_name=$1
+v2ray_version=$2
 
-# 安装docker
-apt install -y docker.io
+# Install Docker
+# Clean installed
+for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt remove -y $pkg; done
 
-# 安装docker-compose
-curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+# Add Docker's official GPG key:
+sudo apt update
+sudo apt install -y ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
-# 生成UUID
-UUID=$(cat /proc/sys/kernel/random/uuid) && echo ${UUID}
-export UUID
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-# 写入v2ray配置文件
-mkdir -p /opt/vpsrank/docker/compose/v2ray/conf
+# Generate UUID
+uuid=$(uuidgen)
 
-cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/config-first.json
+# Create and populate /etc/v2ray/config.json
+sudo mkdir -p /etc/v2ray
+sudo bash -c "cat > /etc/v2ray/config.json" <<EOL
 {
   "log" : {
     "access": "/var/log/v2ray/access.log",
@@ -39,17 +47,17 @@ cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/config-first.json
     "settings": {
       "clients": [
         {
-          "id": "${UUID}",
+          "id": "$uuid",
           "level": 1,
           "alterId": 64
         }
       ]
     },
     "streamSettings": {
-        "network": "ws",
-        "wsSettings": {
-          "path": "/"
-        }
+      "network": "ws",
+      "wsSettings": {
+        "path": "/"
+      }
     },
     "listen": "0.0.0.0"
   }],
@@ -58,24 +66,16 @@ cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/config-first.json
     "settings": {}
   }]
 }
-EOF
+EOL
 
-cat <<EOF > /opt/vpsrank/docker/compose/v2ray/conf/Caddyfile
-${DOMAIN} {
-    file_server
-    route {
-        reverse_proxy 127.0.0.1:10000
-    }
-}
-EOF
-
-cat <<EOF > /opt/vpsrank/docker/compose/v2ray/docker-compose.yaml
+# Create and populate /opt/docker/compose/v2ray/docker-compose.yaml
+sudo mkdir -p /opt/docker/compose/v2ray
+sudo bash -c "cat > /opt/docker/compose/v2ray/docker-compose.yaml" <<EOL
 version: '3'
 services:
-  v2ray-instance:
-    container_name: vpsrank-v2ray-instance
-    image: teddysun/v2ray:5.4.0
-    command: /usr/bin/v2ray run -config /etc/v2ray/config-first.json
+  v2ray:
+    container_name: v2ray
+    image: teddysun/v2ray:$v2ray_version
     restart: always
     environment:
       LANG: en_US.utf8
@@ -83,37 +83,62 @@ services:
     ports:
       - "127.0.0.1:10000:10000"
     volumes:
-      - "./conf:/etc/v2ray"
+      - "/etc/v2ray:/etc/v2ray"
       - "/etc/localtime:/etc/localtime:ro"
-  caddy:
-    container_name: vpsrank-caddy
-    image: caddy:2.6
-    restart: always
-    network_mode: "host"
-    volumes:
-      - "./conf/Caddyfile:/etc/caddy/Caddyfile:ro"
-      - "/etc/localtime:/etc/localtime:ro"
-EOF
+EOL
 
-# 启动v2ray服务端
-cd /opt/vpsrank/docker/compose/v2ray/ && docker-compose up -d
+# Install Caddy
+sudo apt-get install -y debian-keyring debian-archive-keyring apt-transport-https
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo apt-key add -
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+sudo apt-get update
+sudo apt-get install -y caddy
 
-# 终端打印vmess协议串
-vmessConfig="{\"v\":\"2\",\"ps\":\"${DOMAIN}\",\"add\":\"${DOMAIN}\",\"port\":\"443\",\"id\":\"${UUID}\",\"aid\":\"0\",\"scy\":\"auto\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"${DOMAIN}\",\"path\":\"/\",\"tls\":\"tls\",\"sni\":\"\",\"alpn\":\"\"}"
+# Create and populate docker-compose.yaml for Caddy
+sudo bash -c "cat > /opt/docker/compose/v2ray/docker-compose.yaml" <<EOL
+$domain_name {
+    file_server
+    reverse_proxy 127.0.0.1:10000 {
+        header_up Host
+        header_up REMOTE-HOST
+        header_up -X-Forwarded-For
+        header_up -X-Forwarded-Proto
+        header_up -X-Forwarded-Host
+        header_up -X-Real-IP
+    }
+    log {
+        output file /var/log/caddy/access-test-gogo-io.log
+    }
+}
+EOL
+
+# Restart Caddy
+sudo systemctl restart caddy
+
+# Print Vmess in Terminal
+vmessConfig="{\"v\":\"2\",\"ps\":\"${domain_name}\",\"add\":\"${domain_name}\",\"port\":\"443\",\"id\":\"${uuid}\",\"aid\":\"0\",\"scy\":\"auto\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"${domain_name}\",\"path\":\"/\",\"tls\":\"tls\",\"sni\":\"\",\"alpn\":\"\"}"
 vmessString=$(echo -n "vmess://$(echo -n $vmessConfig | base64 --wrap=0)")
 
-echo "====================================="
-echo "V2ray Server配置信息"
-echo "地址(address): ${DOMAIN}"
-echo "端口(port): 443"
-echo "用户id(UUID): ${UUID}"
-echo "额外id(alterId): 0"
-echo "加密方式(security): auto"
-echo "传输协议(network): ws"
-echo "伪装类型(type): none"
-echo "伪装域名(host): ${DOMAIN}"
-echo "路径(path): /"
-echo "底层传输安全: tls"
-echo "====================================="
-echo "=======导入以下vmess链接到V2RayN========"
-echo $vmessString
+# Save Vmess address to file
+/opt/docker/compose/v2ray/
+
+sudo bash -c "cat > /opt/docker/compose/v2ray/vmess_info.txt" <<EOL
+=====================================
+V2ray Server配置信息
+地址(address): ${domain_name}
+端口(port): 443
+用户id(UUID): ${uuid}
+额外id(alterId): 0
+加密方式(security): auto
+传输协议(network): ws
+伪装类型(type): none
+伪装域名(host): ${domain_name}
+路径(path): /
+底层传输安全: tls
+=====================================
+=====你可以通过以下vmess链接进行导入======
+$vmessString
+EOL
+
+cat /opt/docker/compose/v2ray/vmess_info.txt
+
