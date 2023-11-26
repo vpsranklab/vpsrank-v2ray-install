@@ -107,7 +107,7 @@ $domain_name {
         header_up -X-Real-IP
     }
     log {
-        output file /var/log/caddy/access-test-gogo-io.log
+        output file /var/log/caddy/access.log
     }
 }
 EOL
