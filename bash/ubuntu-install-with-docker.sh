@@ -73,7 +73,7 @@ services:
 EOL
 
 # Start V2Ray
-cd /opt/vpsrank/v2ray && docker compose up -d
+cd /opt/vpsrank/v2ray && docker-compose up -d
 
 # Install Caddy
 sudo apt-get install -y debian-keyring debian-archive-keyring apt-transport-https
