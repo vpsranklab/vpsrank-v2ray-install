@@ -15,7 +15,7 @@ sudo apt update
 sudo apt install -y docker.io docker-compose
 
 # Generate UUID
-uuid=$(uuidgen)
+uuid=$(cat /proc/sys/kernel/random/uuid) && echo ${UUID}
 
 # Create and populate /etc/v2ray/config.json
 sudo mkdir -p /etc/v2ray
