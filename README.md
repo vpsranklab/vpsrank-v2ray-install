@@ -56,7 +56,10 @@ coming soon...
    cd /opt/vpsrank/vpsrank-v2ray-install/docker-compose
    ```
 2. 修改`conf/Caddyfile`文件中的`YOUR_DOMAIN`为你的V2Ray域名
-3. 修改`conf/config-first.json`文件中的`YOUR_UUID`为你的UUID, UUID可以在 https://www.uuidtools.com/v4 获取
+3. 修改`conf/config-first.json`文件中的`YOUR_UUID`为你的UUID, UUID可以在 https://www.uuidtools.com/v4 获取, 或通过以下命令生成
+   ```
+   cat /proc/sys/kernel/random/uuid
+   ```
 4. 启动V2Ray服务端
    ```
    docker-compose up -d
