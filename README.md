@@ -19,7 +19,8 @@
 1. 一个域名(一级或二级域名), 并成功解析到你的**国外服务器**IP地址. 域名可通过[Namecheap](https://www.namecheap.com/domains/)或[GoDaddy](https://dcc.godaddy.com/domains)购买, 示例:
    - www.vpsrank.com
    - v2.vpsrank.com
-2. 一台拥有root账户的**国外服务器**: VPS或云服务器均可, 可以通过[搬瓦工 BandwagonHost](https://bwh81.net/aff.php?aff=66695)或其它厂商购买
+2. 在该域名增加一个A记录解析条目,示例将v2.vpsrank.com解析到100.101.102.103的IPv4地址
+3. 一台拥有root账户的**国外服务器**: VPS或云服务器均可, 可以通过[搬瓦工 BandwagonHost](https://bwh81.net/aff.php?aff=66695)或其它厂商购买
 3. 可以通过ssh工具(Xshell/MobaXterm)连接到VPS或云服务器
 
 ## 快速开始
@@ -29,10 +30,16 @@
 
 #### 安装
 
+这个命令仅接收2个**必要**参数:
+- domain_name, V2Ray服务端使用的域名, 并同时用于Caddy申请SSL证书, 示例值: v2.vpsrank.com
+- v2ray_version, V2Ray服务端运行的版本, 示例值: 5.4.0
+
+命令运行格式为 `ubuntu-install-with-docker DOMAIN_NAME V2RAY_VERSION`
+
 ```
 wgt https://vpsrank.com/ubuntu-install-with-docker
 chmod +x ubuntu-install-with-docker
-./ubuntu-install-with-docker test.gogo.io 5.4.0
+./ubuntu-install-with-docker v2.vpsrank.com 5.4.0
 ```
    
 #### 卸载
