@@ -5,10 +5,10 @@
 ## 运行环境
 
 1. 操作系统: Ubuntu 22.04 LTS/20.04 LTS/18.04 LTS
-2. 容器运行时: Docker 20.10.12
-3. 容器编排工具: docker-compose 1.29.2
-4. 流量代理工具: v2ray 5.4.0
-5. 应用服务器: caddy 2.6.x
+2. 容器运行时: Docker Stable Latest
+3. 容器编排工具: docker-compose
+4. 流量代理工具: v2ray
+5. 应用服务器: caddy
 6. 安装目录: /opt/vpsrank/
 7. 端口占用：
    - 80: 应用服务器caddy占用
@@ -25,42 +25,23 @@
 ## 快速开始
 
 ### 自动部署
+适用于全新安装Docker并运行V2Ray服务端
 
-1. 设置必要的环境变量
-    ```
-   export DOMAIN=your.domain.com
-   ```
-2. 选择一种安装方式
-   -  V2Ray包含Docker(适用于全新安装)
-      #### 安装
-   
-      ```
-      curl -L https://vpsrank.com/ubuntu-install-with-docker | sh -
-      ```
-   
-      #### 卸载
-   
-      ```
-      curl -L https://vpsrank.com/ubuntu-uninstall-with-docker | sh -
-      ```
+#### 安装
 
-   - V2Ray不包含Docker(使用你已有的docker与docker-compose)
-      #### 安装
-      ```
-      curl -L https://vpsrank.com/ubuntu-install-without-docker | sh -
-      ```
+```
+wgt https://vpsrank.com/ubuntu-install-with-docker
+chmod +x ubuntu-install-with-docker
+./ubuntu-install-with-docker test.gogo.io 5.4.0
+```
    
-      #### 卸载
-   
-      ```
-      curl -L https://vpsrank.com/ubuntu-uninstall-without-docker | sh -
-      ```
+#### 卸载
+
+coming soon...
 
 ### 手动部署
 
-#### 使用docker-compose部署
-
-> 注意: 你需要预先安装**docker**和**docker-compose**
+> 注意: 你需要预先安装**docker**并且支持**docker compose/docker-compose的两种形式**
 
 1. 克隆这个仓库到你的服务器目录
    ```
