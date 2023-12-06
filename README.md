@@ -16,8 +16,8 @@
 
 ## 前置条件
 
-1. 主机或VPS：非中国大陆地区, 拥有主机root权限, 可以通过[搬瓦工 BandwagonHost](https://bwh81.net/aff.php?aff=66695)或其它厂商购买
-2. 一个域名(一级或二级域名), 并成功解析到你的**国外服务器**IP地址. 域名可通过[Namecheap](https://www.namecheap.com/domains/)或[GoDaddy](https://dcc.godaddy.com/domains)购买, 示例:
+1. 主机或VPS：非中国大陆地区，拥有主机root权限，可以通过[搬瓦工 BandwagonHost](https://bwh81.net/aff.php?aff=66695)或其它厂商购买
+2. 一个域名(一级或二级域名)，并成功解析到你的**国外服务器**IP地址. 域名可通过[Namecheap](https://www.namecheap.com/domains/)或[GoDaddy](https://dcc.godaddy.com/domains)购买，示例:
    - www.vpsrank.com
    - v2.vpsrank.com
 3. 域名解析A记录：将v2.vpsrank.com解析到100.101.102.103的IPv4地址
@@ -30,9 +30,9 @@
 
 #### 安装
 
-这个命令仅接收2个**必要**参数:
-- domain_name, V2Ray服务端使用的域名, 并同时用于Caddy申请SSL证书, 示例值：v2.vpsrank.com
-- v2ray_version, V2Ray服务端运行的版本, 示例值：5.4.0, 其它版本可以在 **[这里](https://hub.docker.com/r/teddysun/v2ray/tags)** 浏览
+这个命令仅接收2个**必要**的参数：
+- domain_name，V2Ray服务端使用的域名，并同时用于Caddy申请SSL证书，示例值：v2.vpsrank.com
+- v2ray_version，V2Ray服务端运行的版本，示例值：5.4.0，其它版本可以在 **[这里](https://hub.docker.com/r/teddysun/v2ray/tags)** 浏览
 
 命令运行格式为 `ubuntu-install-with-docker DOMAIN_NAME V2RAY_VERSION`
 
@@ -56,7 +56,7 @@ coming soon...
    cd /opt/vpsrank/vpsrank-v2ray-install/docker-compose
    ```
 2. 修改`conf/Caddyfile`文件中的`YOUR_DOMAIN`为你的V2Ray域名
-3. 修改`conf/config-first.json`文件中的`YOUR_UUID`为你的UUID, UUID可以在 https://www.uuidtools.com/v4 获取, 或通过以下命令生成
+3. 修改`conf/config-first.json`文件中的`YOUR_UUID`为你的UUID，UUID可以在 https://www.uuidtools.com/v4 获取，或通过以下命令生成
    ```
    cat /proc/sys/kernel/random/uuid
    ```
