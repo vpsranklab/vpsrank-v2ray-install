@@ -1,6 +1,6 @@
 # vpsrank-v2ray-install
 
-[VPS Rank](https://vpsrank.com) 提供的快速部署V2Ray服务端方案
+[VPS Rank](https://vpsrank.com) 提供的快速部署V2Ray服务端方案，基于Docker和Docker Compose编排，达到分钟级部署。
 
 ## 运行环境
 
