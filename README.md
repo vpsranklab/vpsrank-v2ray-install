@@ -4,7 +4,7 @@
 
 ## 运行环境
 
-1. 操作系统：Ubuntu 22.04 LTS/20.04 LTS/18.04 LTS
+1. 已验证的操作系统：Ubuntu 22.04/20.04/18.04 LTS
 2. 容器运行时：Docker Stable Latest
 3. 容器编排工具：docker-compose
 4. 流量代理工具：v2ray
@@ -39,7 +39,7 @@
 ```
 wget https://vpsrank.com/ubuntu-install-with-docker
 chmod +x ubuntu-install-with-docker
-./ubuntu-install-with-docker v2.vpsrank.com 5.4.0
+./ubuntu-install-with-docker your.domain.com 5.7.0
 ```
    
 #### 卸载
