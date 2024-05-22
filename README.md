@@ -48,11 +48,11 @@ coming soon...
 
 ### 手动部署
 
-> 注意：你需要预先安装**docker**并且支持**docker compose/docker-compose的两种形式**
+> 注意：你需要预先安装 **docker** 和 **docker compose/docker-compose** 的两种形式
 
-1. 克隆这个仓库到你的服务器目录
+1. 克隆这个仓库到你的服务器，使用 `/opt/vpsrank/vpsrank-v2ray-install` 目录
    ```
-   git clone https://gitlab.com/vpsrank/vpsrank-v2ray-install.git /opt/vpsrank/vpsrank-v2ray-install
+   git clone https://github.com/vpsranklab/vpsrank-v2ray-install.git /opt/vpsrank/vpsrank-v2ray-install
    cd /opt/vpsrank/vpsrank-v2ray-install/docker-compose
    ```
 2. 修改`conf/Caddyfile`文件中的`YOUR_DOMAIN`为你的V2Ray域名
