@@ -31,8 +31,8 @@
 #### 安装
 
 这个命令仅接收2个**必要**的参数：
-- domain_name，V2Ray服务端使用的域名，并同时用于Caddy申请SSL证书，示例值：v2.vpsrank.com
-- v2ray_version，V2Ray服务端运行的版本，示例值：5.7.0，其它版本可以在 **[这里](https://hub.docker.com/r/teddysun/v2ray/tags)** 浏览
+- domain_name：V2Ray服务端使用的域名，并同时用于Caddy申请SSL证书，示例值 **v2.vpsrank.com**
+- v2ray_version：V2Ray服务端运行的版本，示例值**5.7.0**，其它版本可以在 **[这里](https://hub.docker.com/r/teddysun/v2ray/tags)** 浏览
 
 命令运行格式为 `ubuntu-install-with-docker DOMAIN_NAME V2RAY_VERSION`
 
